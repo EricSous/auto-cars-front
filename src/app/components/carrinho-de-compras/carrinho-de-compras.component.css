@@ -1,0 +1,135 @@
+.carrinho-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.carrinho-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.carrinho-header h1 {
+  font-size: 32px;
+  margin: 0;
+}
+
+.carrinho-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 20px;
+}
+
+.carrinho-item img {
+  max-width: 100px;
+  margin-right: 20px;
+}
+
+.carrinho-item h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.carrinho-item p {
+  font-size: 18px;
+  margin: 0;
+}
+
+.carrinho-total {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.carrinho-total p {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.carrinho-btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.carrinho-btn:hover {
+  background-color: #0062cc;
+  transform: scale(1.1);
+}
+.carro-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 600px; /* definindo largura máxima */
+}
+
+.carro-image {
+  margin-right: 20px;
+  width: 150px; /* definindo largura máxima da imagem */
+  max-width: 100%; /* garantindo que a imagem não exceda a largura máxima */
+}
+
+.carros-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.carro-card {
+  width: 300px; /* largura fixa */
+  border: 1px solid #ccc;
+  padding: 20px;
+  text-align: center;
+}
+
+.carro-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.carro-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* distribuindo espaço uniformemente entre os elementos */
+  flex-grow: 1;
+}
+
+.carro-info h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.carro-info p {
+  margin: 0;
+}
+
+.remover-button {
+  background-color: #3498db;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.remover-button:hover {
+  background-color: #2980b9;
+}

@@ -1,0 +1,19 @@
+<div class="carros-container">
+  <h1>Lista de Carros</h1>
+  <div class="carros-list">
+    <div class="carro-card" *ngFor="let carro of carros">
+      <div class="carro-image">
+        <img alt="{{ carro.modelo }}" />
+      </div>
+      <div class="carro-info">
+        <h2>{{ carro.modelo }}</h2>
+        <p><strong>Marca:</strong> {{ carro.marca }}</p>
+        <p><strong>Ano:</strong> {{ carro.ano }}</p>
+        <p><strong>Preço:</strong> R$ {{ carro.preco }}</p>
+        <button (click)="comprarCarro(carro)" class="comprar-button">
+          Adicionar ao Carrinho
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

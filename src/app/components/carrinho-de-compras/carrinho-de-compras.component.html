@@ -1,0 +1,25 @@
+<div class="carrinho-container">
+  <h1>Carrinho de Compras</h1>
+  <div class="carrinho-list">
+    <div class="carrinho-item" *ngFor="let carro of carros">
+      <div class="carrinho-image">
+        <img alt="{{ carro.modelo }}" />
+      </div>
+      <div class="carro-info">
+        <h2>{{ carro.modelo }}</h2>
+        <p><strong>Marca:</strong> {{ carro.marca }}</p>
+        <p><strong>Ano:</strong> {{ carro.ano }}</p>
+        <p><strong>Preço:</strong> R$ {{ carro.preco }}</p>
+        <button class="remover-button" (click)="removerCarros(carro)">
+          Remover
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="carrinho-total">
+    <h3>Total: R$ {{ total }}</h3>
+    <button class="finalizar-compra" (click)="finalizarCompra()">
+      Finalizar Compra
+    </button>
+  </div>
+</div>
