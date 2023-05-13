@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { CrudClientService } from 'src/app/service/service-produtos';
+import { CrudClientService } from 'src/app/service/service-client';
 import { take } from 'rxjs/operators';
 import { AppComponent } from 'src/app/app.component';
 
@@ -29,7 +29,7 @@ export class LoginComponent {
       .subscribe({
         next: (login) => {
           if (login) {
-            this.router.navigate(['/produtos']);
+            this.router.navigate(['/produto']);
             console.log('logado');
           }
         },

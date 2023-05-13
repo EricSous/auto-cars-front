@@ -1,47 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Produto } from 'src/app/request/produto-dto-file';
+import { ProdutoEntity } from 'src/app/request/produto-entity';
+import { CrudProdutoService } from 'src/app/service/service-product';
 
 @Component({
   selector: 'app-produtos',
   templateUrl: './produtos.component.html',
   styleUrls: ['./produtos.component.css'],
 })
-export class ProdutosComponent {
-  carros = [
-    {
-      modelo: 'Gol',
-      marca: 'Volkswagen',
-      ano: 2021,
-      preco: 50000,
-      imagem:
-        'https://www.vw.com.br/content/dam/vw-ngw/vw_pkw/importers/br/showrooms/gol/downloads/vw-br-gol-life-01.jpg',
-    },
-    {
-      modelo: 'Corolla',
-      marca: 'Toyota',
-      ano: 2022,
-      preco: 90000,
-      imagem:
-        'https://s3.amazonaws.com/toyota.site.toyota-v5/tci-prod/toyota/media/pages/models/corolla/2022/highlights/21-22-toy-cars-corolla-mmp-0049-hr.jpg',
-    },
-    {
-      modelo: 'Onix',
-      marca: 'Chevrolet',
-      ano: 2021,
-      preco: 55000,
-      imagem:
-        'https://www.chevrolet.com.br/content/dam/chevrolet/brasil/desktop/all-models/cars/onix-sedan/gallery/03-images/chevrolet-onix-sedan-gallery-01.jpg?imwidth=960',
-    },
-    {
-      modelo: 'Civic',
-      marca: 'Honda',
-      ano: 2022,
-      preco: 95000,
-      imagem:
-        'https://hondaestadodeminas.com.br/wp-content/uploads/2022/01/002-55.jpg',
-    },
-  ];
+export class ProdutosComponent implements OnInit {
+  carros: Produto[] = [];
+  imagemUrl: string = '';
+  imageData: any;
 
-  comprarCarro(carro: any) {
+  constructor(private produtoService: CrudProdutoService) {}
+
+  ngOnInit(): void {
+    this.getProdutos();
+  }
+
+  getProdutos() {
+    this.produtoService.getProduto().subscribe(
+      (produtos: Produto[]) => {
+        this.carros = produtos;
+      },
+      (error) => {
+        console.log('Erro ao obter os produtos:', error);
+      }
+    );
+  }
+
+  getImagemSrc(carro: Produto): any {
+    return (this.imageData = 'data:image/jpeg;base64,' + carro.file);
+  }
+
+  comprarCarro(carro: Produto) {
     alert(
       `Você comprou o ${carro.modelo} da marca ${carro.marca} por ${carro.preco}`
     );

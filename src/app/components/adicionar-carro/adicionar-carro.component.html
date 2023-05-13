@@ -1,1 +1,99 @@
-<p>adicionar-carro works!</p>
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adicionar Carro à Venda</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Adicionar Carro para Venda</h1>
+      <div class="form-group">
+        <label for="marca">Marca:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="marca"
+          placeholder="Digite a marca do carro"
+          [(ngModel)]="marca"
+          required="true"
+        />
+      </div>
+      <div class="form-group">
+        <label for="modelo">Modelo:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="modelo"
+          placeholder="Digite o modelo do carro"
+          [(ngModel)]="modelo"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="ano">Ano:</label>
+        <input
+          class="form-control"
+          id="ano"
+          placeholder="Digite o ano do carro"
+          [(ngModel)]="ano"
+          type="number"
+          required
+          min="1990"
+          max="2023"
+        />
+      </div>
+      <div class="form-group">
+        <label for="preco">Preço:</label>
+        <input
+          type="number"
+          class="form-control"
+          id="preco"
+          placeholder="Digite o preço do carro"
+          [(ngModel)]="preco"
+          name="preco"
+          required
+          min="0.05"
+          step="0.015"
+        />
+      </div>
+      <div class="form-group">
+        <label for="descricao">Descrição:</label>
+        <textarea
+          class="form-control"
+          id="descricao"
+          rows="3"
+          placeholder="Digite uma descrição do carro"
+          [(ngModel)]="descricao"
+          required
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="foto"> Foto: </label>
+        <label class="image-upload-container btn btn-bwm">
+          <input
+            #imageInput
+            type="file"
+            accept="image/*"
+            (change)="processFile(imageInput)"
+            required
+          />
+        </label>
+      </div>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        (click)="saveCar(imageInput)"
+      >
+        Adicionar Carro
+      </button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -9,9 +9,14 @@ import { AdicionarCarroComponent } from './components/adicionar-carro/adicionar-
 import { CarrinhoDeComprasComponent } from './components/carrinho-de-compras/carrinho-de-compras.component';
 import { ProdutosComponent } from './components/produtos/produtos.component';
 import { CabecalhoComponent } from './components/cabecalho/cabecalho.component';
-import { CrudClientService } from './service/service-produtos';
+import { CrudClientService } from './service/service-client';
 import { LoginComponent } from './components/login/login.component';
-import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HttpHandler,
+} from '@angular/common/http';
+import { CrudProdutoService } from './service/service-product';
 
 @NgModule({
   declarations: [
@@ -21,15 +26,10 @@ import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http'
     CarrinhoDeComprasComponent,
     ProdutosComponent,
     CabecalhoComponent,
-    LoginComponent
+    LoginComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-  ],
-  providers: [CrudClientService, HttpClient],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  providers: [CrudClientService, HttpClient, CrudProdutoService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

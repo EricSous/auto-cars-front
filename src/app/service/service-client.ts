@@ -1,10 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, share, tap } from 'rxjs';
+import { UsuarioEntity } from '../request/user-entity';
 
 @Injectable()
 export class CrudClientService {
-  private readonly apiUrl = 'http://localhost:8080';
+  private readonly apiUrl = 'http://localhost:8080/api';
   private readonly httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
@@ -13,14 +14,13 @@ export class CrudClientService {
 
   constructor(private httpClient: HttpClient) {}
 
-  public create(username: string, password: string): Observable<any> {
-    const url = `${this.apiUrl}/users`;
-    const data = { username, password };
-    return this.httpClient.post(url, data, this.httpOptions);
+  public create(body: UsuarioEntity): Observable<any> {
+    const url = `${this.apiUrl}/cadastrar`;
+    return this.httpClient.post(url, body, this.httpOptions);
   }
 
   public read(login: string, password: string): Observable<any> {
-    const url = `${this.apiUrl}/users/getUser/${login}/${password}`;
+    const url = `${this.apiUrl}/usuarios/${login}/${password}`;
     return this.httpClient.get(url, this.httpOptions).pipe(
       tap(() => (this.isAuthenticated = true)),
       share()
@@ -32,7 +32,7 @@ export class CrudClientService {
     username: string,
     password: string
   ): Observable<any> {
-    const url = `${this.apiUrl}/users/${userId}`;
+    const url = `${this.apiUrl}/usuarios/${userId}`;
     const data = { username, password };
     return this.httpClient.put(url, data, this.httpOptions);
   }
