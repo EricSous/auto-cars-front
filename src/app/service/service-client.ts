@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, share, tap } from 'rxjs';
 import { UsuarioEntity } from '../request/user-entity';
+import { UsuarioEdit } from '../request/user-edit';
 
 @Injectable()
 export class CrudClientService {
@@ -27,13 +28,10 @@ export class CrudClientService {
     );
   }
 
-  public update(
-    userId: string,
-    username: string,
-    password: string
-  ): Observable<any> {
-    const url = `${this.apiUrl}/usuarios/${userId}`;
-    const data = { username, password };
+  public update(user: UsuarioEdit): Observable<any> {
+    console.log(user);
+    const url = `${this.apiUrl}/editar`;
+    const data = user;
     return this.httpClient.put(url, data, this.httpOptions);
   }
 

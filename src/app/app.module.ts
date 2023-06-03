@@ -11,12 +11,9 @@ import { ProdutosComponent } from './components/produtos/produtos.component';
 import { CabecalhoComponent } from './components/cabecalho/cabecalho.component';
 import { CrudClientService } from './service/service-client';
 import { LoginComponent } from './components/login/login.component';
-import {
-  HttpClient,
-  HttpClientModule,
-  HttpHandler,
-} from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CrudProdutoService } from './service/service-product';
+import { EditarUserComponent } from './components/editar-user/editar-user.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +24,7 @@ import { CrudProdutoService } from './service/service-product';
     ProdutosComponent,
     CabecalhoComponent,
     LoginComponent,
+    EditarUserComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [CrudClientService, HttpClient, CrudProdutoService],

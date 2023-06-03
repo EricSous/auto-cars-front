@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Produto } from 'src/app/request/produto-dto-file';
 import { ProdutoEntity } from 'src/app/request/produto-entity';
+import { CarrinhoService } from 'src/app/service/service-carrinho';
 import { CrudProdutoService } from 'src/app/service/service-product';
 
 @Component({
@@ -13,7 +14,10 @@ export class ProdutosComponent implements OnInit {
   imagemUrl: string = '';
   imageData: any;
 
-  constructor(private produtoService: CrudProdutoService) {}
+  constructor(
+    private produtoService: CrudProdutoService,
+    private carrinhoService: CarrinhoService
+  ) {}
 
   ngOnInit(): void {
     this.getProdutos();
@@ -35,8 +39,9 @@ export class ProdutosComponent implements OnInit {
   }
 
   comprarCarro(carro: Produto) {
-    alert(
-      `Você comprou o ${carro.modelo} da marca ${carro.marca} por ${carro.preco}`
-    );
+    console.log(carro);
+    this.carrinhoService.adicionaProduto(1, carro.id).subscribe(() => {
+      alert('Carro adicionado com sucesso!');
+    });
   }
 }

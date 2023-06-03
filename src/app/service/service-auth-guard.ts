@@ -13,8 +13,10 @@ export class AuthGuard implements CanActivate {
   canActivate(): boolean {
     this.isAuthenticated = this.service.isAuthenticated;
     if (this.isAuthenticated) {
+      localStorage.setItem('isAuthenticated', 'true');
       return true;
     } else {
+      localStorage.removeItem('isAuthenticated');
       this.router.navigate(['/login']);
       return false;
     }

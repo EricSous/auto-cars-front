@@ -3,7 +3,7 @@ export interface Produto {
   marca: string;
   modelo: string;
   ano: string;
-  preco: string;
+  preco: number;
   descricao: string;
   file: string;
   carroImageUrl?: string;

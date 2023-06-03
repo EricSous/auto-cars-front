@@ -3,7 +3,7 @@
   <div class="carrinho-list">
     <div class="carrinho-item" *ngFor="let carro of carros">
       <div class="carrinho-image">
-        <img alt="{{ carro.modelo }}" />
+        <img alt="{{ carro.modelo }}" [src]="getImagemSrc(carro)" />
       </div>
       <div class="carro-info">
         <h2>{{ carro.modelo }}</h2>

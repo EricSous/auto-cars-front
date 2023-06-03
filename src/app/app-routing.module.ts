@@ -6,13 +6,27 @@ import { AuthGuard } from './service/service-auth-guard';
 import { CarrinhoDeComprasComponent } from './components/carrinho-de-compras/carrinho-de-compras.component';
 import { AdicionarCarroComponent } from './components/adicionar-carro/adicionar-carro.component';
 import { CadastrarUsuarioComponent } from './components/cadastrar-usuario/cadastrar-usuario.component';
+import { EditarUserComponent } from './components/editar-user/editar-user.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'produto', component: ProdutosComponent },
-  { path: 'carrinho', component: CarrinhoDeComprasComponent },
-  { path: 'vender', component: AdicionarCarroComponent },
-  { path: 'registrar', component: CadastrarUsuarioComponent },
+  {
+    path: 'carrinho',
+    component: CarrinhoDeComprasComponent,
+  },
+  {
+    path: 'vender',
+    component: AdicionarCarroComponent,
+  },
+  {
+    path: 'registrar',
+    component: CadastrarUsuarioComponent,
+  },
+  {
+    path: 'editar',
+    component: EditarUserComponent,
+  },
   { path: '**', redirectTo: '/login' },
 ];
 
