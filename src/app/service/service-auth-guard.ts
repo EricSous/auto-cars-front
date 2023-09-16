@@ -13,6 +13,7 @@ export class AuthService {
 
   // Função que efetua o login
   async login(data: UsuarioEntity): Promise<any> {
+    localStorage.setItem('loggedUser', '');
     const url = `${this.apiUrl}/login`;
     const response = await firstValueFrom(this.httpClient.post(url, data));
     return response;
@@ -36,5 +37,9 @@ export class AuthService {
       console.log(error);
       return null;
     }
+  }
+
+  logout() {
+    localStorage.setItem('loggedUser', '');
   }
 }
