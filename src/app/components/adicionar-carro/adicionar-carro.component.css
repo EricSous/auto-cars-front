@@ -1,0 +1,12 @@
+/* Estilize o corpo da página */
+body {
+  background-color: gray;
+}
+
+/* Estilize o formulário */
+.container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}

@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { CrudClientService } from 'src/app/service/service-client';
 import { take } from 'rxjs/operators';
 import { AppComponent } from 'src/app/app.component';
+import { AuthService } from 'src/app/service/service-auth-guard';
+import { UsuarioEntity } from 'src/app/request/user-entity';
 
 @Component({
   selector: 'app-login',
@@ -14,29 +16,49 @@ export class LoginComponent {
   @Input() password: string = '';
 
   constructor(
-    private service: CrudClientService,
+    private authService: CrudClientService,
     private router: Router,
-    private appComponent: AppComponent
+    private appComponent: AppComponent,
+    private authGuard: AuthService
   ) {}
 
   ngOnInit() {
+    // Esconder o cabeçalho ao entrar na página de login
     this.appComponent.esconderCabecalho();
   }
+
   logar() {
-    this.service
-      .read(this.login, this.password)
-      .pipe(take(1))
-      .subscribe({
-        next: (login) => {
-          if (login) {
-            this.router.navigate(['/produto']);
-            console.log('logado');
-          }
-        },
-        error: (erro) => {
-          alert('Erro ao fazer login');
-          console.error(erro);
-        },
-      });
+    // Chamar o serviço de autenticação para fazer login
+    try {
+      var dataDado: UsuarioEntity = {
+        login: this.login,
+        senha: this.password,
+      };
+      // Envie os dados para o login e aguarde a resolução da promessa
+      this.authGuard
+        .login(dataDado)
+        .then((res) => {
+          // Salve os dados do usuário logado
+          this.authGuard.setLoggedUser(res);
+
+          // Exiba os dados para conferência
+          console.log('res', res);
+
+          // Navegue para outra página
+          this.router.navigate(['/produto']);
+        })
+        .catch((error) => {
+          // Exiba o erro caso ocorra
+          console.log('error', error);
+
+          // Exiba um alerta para o usuário.
+          alert(
+            'Não foi possível efetuar login. Verifique os dados e tente novamente.'
+          );
+        });
+    } catch (error) {
+      // Lida com erros síncronos aqui
+      console.error('Erro síncrono:', error);
+    }
   }
 }

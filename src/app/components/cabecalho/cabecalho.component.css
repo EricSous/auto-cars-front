@@ -1,8 +1,20 @@
+/* Seletor para a navbar */
+.navbar {
+  background-image: url("/assets/background.jpg"); /* Caminho relativo à pasta de ativos (assets) */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.3); /* Adicione sombreamento à navbar */
+  height: 100px; /* Ajuste a altura da navbar conforme necessário */
+}
+
+/* Estilos para a navbar-brand (se necessário) */
 .navbar-brand {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
 }
 
+/* Estilos para outros elementos da navbar (se necessário) */
 .navbar-nav {
   align-items: center;
 }
@@ -24,4 +36,8 @@
   .navbar-toggler {
     margin-right: 0;
   }
+}
+/* styles.css */
+.white-link {
+  color: white;
 }

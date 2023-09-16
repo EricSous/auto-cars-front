@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CadastrarUsuarioComponent } from './components/cadastrar-usuario/cadastrar-usuario.component';
@@ -14,6 +13,12 @@ import { LoginComponent } from './components/login/login.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CrudProdutoService } from './service/service-product';
 import { EditarUserComponent } from './components/editar-user/editar-user.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
+import { CurrencyFormatDirective } from './directives/currency-format.directive';
+import { AuthService } from './service/service-auth-guard';
+import { AuthGuard } from './service/auth.guard';
 
 @NgModule({
   declarations: [
@@ -25,9 +30,24 @@ import { EditarUserComponent } from './components/editar-user/editar-user.compon
     CabecalhoComponent,
     LoginComponent,
     EditarUserComponent,
+    CurrencyFormatDirective,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
-  providers: [CrudClientService, HttpClient, CrudProdutoService],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    CommonModule,
+  ],
+  providers: [
+    CrudClientService,
+    HttpClient,
+    CrudProdutoService,
+    CurrencyPipe,
+    AuthService,
+    AuthGuard,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,11 +1,12 @@
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { CrudProdutoService } from 'src/app/service/service-product';
+import { CurrencyPipe } from '@angular/common';
+
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
 }
-
-import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { ProdutoEntity } from 'src/app/request/produto-entity';
-import { CrudProdutoService } from 'src/app/service/service-product';
 
 @Component({
   selector: 'app-adicionar-carro',
@@ -13,58 +14,98 @@ import { CrudProdutoService } from 'src/app/service/service-product';
   styleUrls: ['./adicionar-carro.component.css'],
 })
 export class AdicionarCarroComponent {
-  @Input() marca: string = '';
-  @Input() modelo: string = '';
-  @Input() ano: string = '';
-  @Input() preco: string = '';
-  @Input() descricao: string = '';
-  @Input() file: File | null = null;
-
+  carroForm: FormGroup;
+  formattedPrice: string = '';
   selectedFile: ImageSnippet = new ImageSnippet('', new File([], ''));
 
   constructor(
     private produtoService: CrudProdutoService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private fb: FormBuilder,
+    private currencyPipe: CurrencyPipe
+  ) {
+    this.carroForm = this.fb.group({
+      marca: ['', Validators.required],
+      modelo: ['', Validators.required],
+      ano: [
+        '',
+        [Validators.required, Validators.min(1990), Validators.max(2023)],
+      ],
+      preco: ['', [Validators.required, Validators.min(0.05)]],
+      descricao: ['', Validators.required],
+    });
+  }
+
+  formatPrice(event: any) {
+    let numericValue = parseFloat(event.target.value.replace(/[^0-9]/g, ''));
+    if (!isNaN(numericValue)) {
+      numericValue /= 100; // Divide por 100 para lidar com centavos
+      const formattedValue = numericValue.toLocaleString('pt-BR', {
+        style: 'currency',
+        currency: 'BRL',
+      });
+      this.formattedPrice = formattedValue;
+      this.carroForm
+        .get('preco')
+        ?.setValue(numericValue.toFixed(2), { emitEvent: false });
+    } else {
+      this.formattedPrice = '';
+      this.carroForm.get('preco')?.setValue('', { emitEvent: false });
+    }
+  }
 
   onFileChange(event: Event) {
     const fileInput = event.target as HTMLInputElement;
     const file = fileInput.files?.[0];
-    this.file = file as File;
+    if (file) {
+      this.processFile(file);
+    }
   }
 
-  processFile(imageInput: any) {
-    const file: File = imageInput.files[0];
-    const reader = new FileReader();
+  processFile(event: any) {
+    const fileInput = event.target as HTMLInputElement;
+    const file = fileInput.files?.[0];
+    if (file) {
+      const reader = new FileReader();
 
-    reader.addEventListener('load', (event: any) => {
-      this.selectedFile = new ImageSnippet(event.target.result, file);
+      reader.addEventListener('load', (event: any) => {
+        this.selectedFile = new ImageSnippet(event.target.result, file);
 
-      this.saveCar(this.selectedFile.file);
-    });
+        // Chame a função saveCar aqui, se necessário
+        // this.saveCar(this.selectedFile.file);
+      });
 
-    reader.readAsDataURL(file);
+      reader.readAsDataURL(file);
+    }
   }
 
-  saveCar(imageInput?: any) {
-    if (
-      !this.marca ||
-      !this.modelo ||
-      !this.ano ||
-      !this.preco ||
-      !this.descricao
-    ) {
-      alert('Preencha todos os campos');
+  saveCar() {
+    if (this.carroForm.invalid) {
+      alert('Preencha todos os campos corretamente.');
       return;
     }
-    const formData = new FormData();
-    formData.append('marca', this.marca);
-    formData.append('modelo', this.modelo);
-    formData.append('ano', this.ano);
-    formData.append('preco', this.preco);
-    formData.append('descricao', this.descricao);
 
-    formData.append('file', imageInput);
+    const precoFormatted = parseFloat(
+      this.carroForm.get('preco')?.value.replace(/[^0-9.]/g, '')
+    );
+
+    if (isNaN(precoFormatted)) {
+      alert('Formato de preço inválido.');
+      return;
+    }
+
+    // Agora, `precoFormatted` contém o valor como um número
+
+    const formData = new FormData();
+    formData.append('marca', this.carroForm.get('marca')?.value || '');
+    formData.append('modelo', this.carroForm.get('modelo')?.value || '');
+    formData.append('ano', this.carroForm.get('ano')?.value || '');
+    formData.append('preco', precoFormatted.toString()); // Converte para string
+    formData.append('descricao', this.carroForm.get('descricao')?.value || '');
+
+    if (this.selectedFile.file) {
+      formData.append('file', this.selectedFile.file);
+    }
 
     this.produtoService.adicionaProduto(formData).subscribe({
       next: () => {
